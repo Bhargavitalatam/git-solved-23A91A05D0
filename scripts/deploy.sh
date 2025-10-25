@@ -1,21 +1,20 @@
 #!/bin/bash
 # Unified Deployment Script
-# Supports: Production and Development
-# Version: 2.0.0-beta
+# Supports: Production, Development, Experimental
+# Version: 3.0.0
 
-set -e
+set -euo pipefail
 
 echo "====================================="
-echo "DevOps Simulator - Unified Deploy"
+echo "DevOps Simulator - Unified Deployment"
 echo "====================================="
 
-# Choose environment: production or development
-DEPLOY_ENV=${1:-development}  # Default to development if not specified
+# Choose environment: production, development, or experimental
+DEPLOY_ENV=${1:-development}  # Default to development
 
 echo "Environment: $DEPLOY_ENV"
 
 if [ "$DEPLOY_ENV" == "production" ]; then
-  # Production Configuration
   DEPLOY_REGION="us-east-1"
   APP_PORT=8080
 
@@ -24,11 +23,11 @@ if [ "$DEPLOY_ENV" == "production" ]; then
 
   echo "Running pre-deployment checks..."
   if [ ! -f "config/app-config.yaml" ]; then
-      echo "Error: Configuration file not found!"
-      exit 1
+    echo "Error: Configuration file not found!"
+    exit 1
   fi
 
-  echo "Starting deployment..."
+  echo "Starting production deployment..."
   echo "Pulling latest Docker images..."
   # docker pull devops-simulator:latest
 
@@ -38,8 +37,44 @@ if [ "$DEPLOY_ENV" == "production" ]; then
   echo "Deployment completed successfully!"
   echo "Application available at: https://app.example.com"
 
+elif [ "$DEPLOY_ENV" == "experimental" ]; then
+  DEPLOY_STRATEGY="canary"
+  DEPLOY_CLOUDS=("aws" "azure" "gcp")
+  AI_OPTIMIZATION=true
+  CHAOS_TESTING=false
+  APP_PORT=9000
+
+  echo "Strategy: $DEPLOY_STRATEGY"
+  echo "Target Clouds: ${DEPLOY_CLOUDS[@]}"
+  echo "AI Optimization: $AI_OPTIMIZATION"
+
+  if [ "$AI_OPTIMIZATION" = true ]; then
+    echo "🤖 Running AI pre-deployment analysis..."
+    python3 scripts/ai-analyzer.py --analyze-deployment
+    echo "✓ AI analysis complete"
+  fi
+
+  echo "Running advanced pre-deployment checks..."
+  if [ ! -f "config/app-config.yaml" ]; then
+    echo "Error: Configuration file not found!"
+    exit 1
+  fi
+
+  for cloud in "${DEPLOY_CLOUDS[@]}"; do
+    echo "Validating $cloud configuration..."
+    # cloud-specific validation
+  done
+
+  echo "Starting multi-cloud deployment..."
+  for cloud in "${DEPLOY_CLOUDS[@]}"; do
+    echo "Deploying to $cloud..."
+    # cloud-specific deployment logic
+  done
+
+  echo "Experimental deployment completed!"
+  echo "Application available at: http://localhost:$APP_PORT"
+
 else
-  # Development Configuration
   DEPLOY_MODE="docker-compose"
   APP_PORT=3000
   ENABLE_DEBUG=true
@@ -50,8 +85,8 @@ else
 
   echo "Running pre-deployment checks..."
   if [ ! -f "config/app-config.yaml" ]; then
-      echo "Error: Configuration file not found!"
-      exit 1
+    echo "Error: Configuration file not found!"
+    exit 1
   fi
 
   echo "Installing dependencies..."
@@ -60,8 +95,7 @@ else
   echo "Running tests..."
   npm test
 
-  echo "Starting deployment..."
-  echo "Using Docker Compose..."
+  echo "Starting development deployment..."
   docker-compose up -d
 
   echo "Waiting for application to be ready..."
