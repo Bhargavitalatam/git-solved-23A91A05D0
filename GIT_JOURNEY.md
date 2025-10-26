@@ -54,3 +54,4 @@
 - Understood how to use feature flags and environment-aware scripting
 - Practiced advanced Git commands like `stash`, `cherry-pick`, `rebase`
 - Gained confidence in managing real-world DevOps workflows
+"- Always test after resolving conflicts" 
