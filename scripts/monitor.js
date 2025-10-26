@@ -1,3 +1,4 @@
+// Monitoring script updated for clarity
 /**
  * System Monitoring Script
  * Supports: Production, Development, Experimental
