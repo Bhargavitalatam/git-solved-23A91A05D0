@@ -1,3 +1,4 @@
+# Deployment script for DevOps Simulator
 #!/bin/bash
 # Unified Deployment Script
 # Supports: Production, Development, Experimental
