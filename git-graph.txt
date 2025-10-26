@@ -1,0 +1,15 @@
+* 97ab4f2 Add CHANGELOG.md with 10+ entries
+* 5b0dbdf Complete GIT_JOURNEY.md with conflict summaries and reflections
+* 6001959 Add conflict summary section to GIT_JOURNEY.md
+* af659a1 Add GIT_JOURNEY.md with initial reflections
+*   300847f merge: Resolve all conflicts from conflict-simulator branch
+|\  
+| * d3dd9b2 updating conflict-simulator
+* |   46b9b7c Merged dev into main and resolved all conflicts
+|\ \  
+| * | 02011a5 updating dev
+| |/  
+* | 0312c6f updating main
+* | fadfd24 Revise README for DevOps Simulator project
+|/  
+* ae630eb Initial commit
